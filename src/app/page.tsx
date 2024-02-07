@@ -1,11 +1,12 @@
 "use client";
 
 import { SignInButton, SignOutButton, useSession } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
 export default function Home() {
   const createImage = useMutation(api.images.createImage);
+  const images = useQuery(api.images.getImagesForUser);
 
   const { isSignedIn } = useSession();
 
@@ -28,6 +29,13 @@ export default function Home() {
           <button>Create</button>
         </form>
       )}
+      {images?.map((image) => {
+        return (
+          <div key={image._id}>
+            <h1>{image.title}</h1>
+          </div>
+        );
+      })}
     </main>
   );
 }
