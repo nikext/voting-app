@@ -4,6 +4,8 @@ import { v } from "convex/values";
 export default defineSchema({
   images: defineTable({
     title: v.string(),
-    userId: v.optional(v.string()),
+    userId: v.string(),
+    aImage: v.string(),
+    bImage: v.string(),
   }),
 });

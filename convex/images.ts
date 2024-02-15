@@ -4,6 +4,8 @@ import { mutation, query } from './_generated/server';
 export const createImage = mutation({
     args: {
         title: v.string(),
+        aImage: v.string(),
+        bImage: v.string(),
     },
     handler: async (ctx, args) => {
         const user = await ctx.auth.getUserIdentity();
@@ -12,9 +14,11 @@ export const createImage = mutation({
             throw new Error('You must be logged in to create an image');
         }
 
-        await ctx.db.insert('images', {
+        return await ctx.db.insert('images', {
             title: args.title,
             userId: user.subject,
+            aImage: args.aImage,
+            bImage: args.bImage
         });
     },
 });
